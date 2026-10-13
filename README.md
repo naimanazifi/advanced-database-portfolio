@@ -1,61 +1,95 @@
-# advanced-database-portfolio
-MIT 8103 Advanced Database Systems Portfolio
-Advanced Database Systems Portfolio
+# Advanced Database Systems Portfolio
 
-Course Code: MIT 8103
-Academic Session: 2026/2027
-Semester: First Semester
+**Course Code:** MIT 8103  
+**Academic Session:** 2026/2027  
+**Semester:** First Semester
 
-1. Selected Case Study
+## 1. Selected Case Study
 
-Organisation: University Student Management and Result Management System
+**Organisation:** University Student Management and Result Management System
 
-2. Project Overview
+## 2. Project Overview
 
-This project focuses on designing and implementing a database system for a university. The system will manage student records, departments, courses, lecturers, course registrations, semesters, and academic results.
+This project focuses on designing and implementing a relational database system for a university. The system manages student records, departments, programmes, courses, lecturers, semesters, course registrations and academic results.
 
-The aim is to develop a reliable and organised database that supports efficient storage, retrieval, updating, and management of academic information.
+The objective is to develop a structured and reliable database that supports accurate data storage, retrieval, updating and reporting while maintaining data integrity.
 
-3. Database Users
+## 3. Database Users
 
 The main users of the system are:
 
-Students
+- Students
+- Lecturers
+- Department administrators
+- Academic registry officers
+- System administrators
 
-Lecturers
+## 4. Major Data to Be Stored
 
-Department administrators
+The database stores student details, department information, academic programmes, course records, lecturer details, semester information, course offerings, registrations and student results.
 
-Academic registry officers
+## 5. Key Database Operations
 
-System administrators
+The system is designed to support:
 
-4. Major Data to Be Stored
+- Registering students for courses.
+- Managing departments, programmes, lecturers and courses.
+- Recording and retrieving student results.
+- Calculating grade point averages (GPA).
+- Generating academic transcripts.
+- Producing reports on student enrolment and academic performance.
+- Retrieving records efficiently using SQL queries and indexes.
 
-The database will store student details, department information, course records, lecturer details, course registrations, semester information, and student grades.
+## 6. Portfolio Objectives
 
-5. Key Database Operations
+This portfolio demonstrates the application of advanced database concepts, including:
 
-The system will support:
+- Relational database design and normalisation.
+- SQL implementation, querying and optimisation.
+- Transaction management and concurrency control.
+- NoSQL database modelling.
+- Distributed and cloud database concepts.
+- Database performance evaluation and technical documentation.
 
-Registering students for courses.
+## 7. Repository Structure
 
-Managing departments, lecturers, and courses.
+The repository is organised into sections corresponding to the portfolio activities.
 
-Recording and retrieving student results.
+### Part 1: Database Design
 
-Calculating Grade Point Average (GPA).
+Contains the database design materials, including the entity-relationship diagram.
 
-Generating academic transcripts.
+### Part 2: Query Optimisation
 
-Producing reports on student performance.
+The `portfolio-2-query-optimisation/` directory contains:
 
-6. Portfolio Objectives
+- `schema.sql` — creates the database tables, relationships and constraints.
+- `sample-data.sql` — provides fictional records for testing.
+- `queries.sql` — contains SQL queries for retrieving and analysing academic data.
+- `indexes.sql` — defines additional indexes for selected query operations.
+- `performance-analysis.md` — documents indexing decisions, observed execution plans, benefits and limitations.
 
-This portfolio will demonstrate database design and normalisation, SQL query processing and optimisation, transaction management and concurrency control, NoSQL data modelling, and distributed and cloud database concepts.
+## 8. Running Part 2
 
-7. Development Approach
+The SQL implementation was tested using MySQL 8 through DB Fiddle.
 
-The project will be developed progressively throughout the semester. SQL scripts, database models, test results, screenshots, technical explanations, and documentation will be maintained in this repository.
+To reproduce the tests:
 
-The implementation and results will be tested and documented as each portfolio activity is completed.
+1. Select MySQL 8 in DB Fiddle.
+2. Run the table definitions in `schema.sql`.
+3. Execute the statements in `sample-data.sql` after creating the tables.
+4. Run the required statements from `queries.sql`.
+5. Apply the additional indexes in `indexes.sql` after checking which indexes already exist.
+6. Use `EXPLAIN` to inspect query execution plans and document the observed results.
+
+The schema and sample data must be available together whenever the testing environment resets its database.
+
+## 9. Development Approach
+
+The project is developed progressively throughout the semester. SQL scripts, database models, test results, screenshots, technical explanations and supporting documentation are maintained in this repository.
+
+Each portfolio activity is documented and tested as it is completed. Performance claims are based on observed results, and limitations are stated where additional testing is required.
+
+## 10. Conclusion
+
+This portfolio applies advanced database principles to a university student management and result management case study. It provides a foundation for exploring data integrity, efficient query processing, transaction management and other database technologies throughout the course.
