@@ -36,6 +36,16 @@ The following procedure can be used:
 
 The same database engine, dataset and query conditions should be used in both tests. Where possible, queries should be executed more than once to reduce the influence of temporary system activity.
 
+### 3.1 Observed Test Results
+
+The SQL queries were tested using MySQL 8 in DB Fiddle with a small sample dataset containing three students, three course offerings and four result records. The `EXPLAIN` statement was used to examine how MySQL planned selected queries.
+
+The execution plans showed index use for searches on `Student.Programme_ID`, `Course_Offering.Course_ID` and `Registration.Student_ID`. These results indicate that MySQL could use the relevant indexes for those conditions.
+
+For the query filtering `Result` records with `Score >= 80`, MySQL performed a full table scan rather than using the score index. The plan reported four rows to examine. This is reasonable for a very small table, where scanning all rows may cost less than accessing an index.
+
+These tests confirm the observed query plans, but they do not establish a measured improvement in execution speed. A larger dataset and repeated tests with and without the additional indexes would be needed to measure performance differences reliably.
+
 ## 4. Expected Benefits
 
 The selected indexes may reduce the number of rows the database needs to examine when retrieving related records. They may improve joins involving student programmes, course offerings and registrations.
