@@ -75,17 +75,18 @@ LEFT JOIN Student s
 GROUP BY p.Programme_ID, p.Programme_Name
 ORDER BY Total_Students DESC;
 
--- 6. Calculate average score for each course.
+-- 6. Calculate average score for every course,
+-- including courses without recorded results.
 SELECT
     c.Course_Name,
     AVG(res.Score) AS Average_Score,
     COUNT(res.Result_ID) AS Results_Recorded
 FROM Course c
-JOIN Course_Offering co
+LEFT JOIN Course_Offering co
     ON c.Course_ID = co.Course_ID
-JOIN Registration r
+LEFT JOIN Registration r
     ON co.Offering_ID = r.Offering_ID
-JOIN Result res
+LEFT JOIN Result res
     ON r.Registration_ID = res.Registration_ID
 GROUP BY c.Course_ID, c.Course_Name
 ORDER BY Average_Score DESC;
