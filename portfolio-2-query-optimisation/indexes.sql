@@ -1,4 +1,4 @@
-sql
+
 -- MIT 8103: University Student Management System
 -- Part 2: Query Optimisation
 -- Indexes for frequently used search and join columns
