@@ -2,11 +2,14 @@
 -- Portfolio 3: Transactions and Concurrency
 -- Demonstration of transaction isolation
 
--- Display the current transaction isolation level.
+-- Check the current session isolation level.
 SELECT @@transaction_isolation;
 
--- Set the isolation level for the next transaction.
+-- Set isolation for the next transaction.
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+-- Verify the configured isolation level.
+SELECT @@transaction_isolation;
 
 START TRANSACTION;
 
