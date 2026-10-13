@@ -93,3 +93,21 @@ Each portfolio activity is documented and tested as it is completed. Performance
 ## 10. Conclusion
 
 This portfolio applies advanced database principles to a university student management and result management case study. It provides a foundation for exploring data integrity, efficient query processing, transaction management and other database technologies throughout the course.
+
+## 11. Portfolio Summary
+
+- **Portfolio 1 – Database Design:** Relational schema, entity relationships, keys and integrity constraints.
+- **Portfolio 2 – Query Optimisation:** SQL queries, joins, indexes and execution-plan analysis.
+- **Portfolio 3 – Transactions and Concurrency:** COMMIT, ROLLBACK, isolation concepts and duplicate-registration prevention.
+- **Portfolio 4 – NoSQL:** MongoDB document modelling and queries for student profiles, programmes and skills.
+- **Portfolio 5 – Distributed and Cloud Databases:** Proposed cloud architecture, replication, backups, monitoring and recovery.
+
+## 12. Technical Reflection
+
+This project improved my understanding of database design, transaction processing, query performance, document databases and cloud database architecture. The MySQL exercises demonstrated how transactions and integrity constraints help protect academic records. The MongoDB exercises showed how nested documents and arrays can support flexible student profiles. The cloud design highlighted the importance of replication, backups, security and recovery planning.
+
+Some limitations remain. A two-session concurrency experiment has not been completed, and the cloud architecture has not been deployed to a live service. Further work would include testing simultaneous transactions, measuring query performance, validating backup restoration and testing recovery from database failure.
+
+## 13. AI Use Declaration
+
+ChatGPT was used to assist with planning, explanations, example queries and documentation. I reviewed the suggested material and executed selected SQL and MongoDB Playground queries, using observed results to check the examples. Cloud deployment content is presented as a proposed design, not as a live implementation. I remain responsible for reviewing and understanding the submitted work.
