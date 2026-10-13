@@ -1,0 +1,83 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="university-er-complete" name="University Student Management ERD">
+    <mxGraphModel dx="1415" dy="976" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="e2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;DEPARTMENT&lt;/b&gt;&lt;hr/&gt;Department_ID (PK)&lt;br/&gt;Department_Name&lt;br/&gt;Office_Location" vertex="1">
+          <mxGeometry height="150" width="280" x="60" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;PROGRAMME&lt;/b&gt;&lt;hr/&gt;Programme_ID (PK)&lt;br/&gt;Programme_Name&lt;br/&gt;Degree_Level&lt;br/&gt;Department_ID (FK)" vertex="1">
+          <mxGeometry height="180" width="310" x="480" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;STUDENT&lt;/b&gt;&lt;hr/&gt;Student_ID (PK)&lt;br/&gt;First_Name&lt;br/&gt;Last_Name&lt;br/&gt;Email (UNIQUE)&lt;br/&gt;Date_of_Birth&lt;br/&gt;Admission_Year&lt;br/&gt;Programme_ID (FK)" vertex="1">
+          <mxGeometry height="160" width="410" x="920" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;LECTURER&lt;/b&gt;&lt;hr/&gt;Lecturer_ID (PK)&lt;br/&gt;First_Name&lt;br/&gt;Last_Name&lt;br/&gt;Email (UNIQUE)&lt;br/&gt;Department_ID (FK)" vertex="1">
+          <mxGeometry height="180" width="300" x="70" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;COURSE&lt;/b&gt;&lt;hr/&gt;Course_ID (PK)&lt;br/&gt;Course_Name&lt;br/&gt;Credit_Units&lt;br/&gt;Department_ID (FK)" vertex="1">
+          <mxGeometry height="170" width="320" x="470" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;SEMESTER&lt;/b&gt;&lt;hr/&gt;Semester_ID (PK)&lt;br/&gt;Semester_Name&lt;br/&gt;Academic_Year&lt;br/&gt;Start_Date&lt;br/&gt;End_Date" vertex="1">
+          <mxGeometry height="150" width="380" x="920" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;COURSE_OFFERING&lt;/b&gt;&lt;hr/&gt;Offering_ID (PK)&lt;br/&gt;Course_ID (FK)&lt;br/&gt;Lecturer_ID (FK)&lt;br/&gt;Semester_ID (FK)" vertex="1">
+          <mxGeometry height="180" width="380" x="170" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;REGISTRATION&lt;/b&gt;&lt;hr/&gt;Registration_ID (PK)&lt;br/&gt;Student_ID (FK)&lt;br/&gt;Offering_ID (FK)&lt;br/&gt;Registration_Date&lt;br/&gt;Status" vertex="1">
+          <mxGeometry height="190" width="320" x="630" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontColor=#111827;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10;shadow=0;" value="&lt;b&gt;RESULT&lt;/b&gt;&lt;hr/&gt;Result_ID (PK)&lt;br/&gt;Registration_ID (FK, UNIQUE)&lt;br/&gt;Score&lt;br/&gt;Grade&lt;br/&gt;Grade_Point" vertex="1">
+          <mxGeometry height="180" width="280" x="1080" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e3" value="has  (1:M)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" edge="1" parent="1" source="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e4" value="enrols  (1:M)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e5" value="employs  (1:M)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e6" value="owns  (1:M)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r5" edge="1" parent="1" source="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e8" value="is scheduled as  (1:M)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" edge="1" parent="1" source="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e8" value="teaches  (1:M)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" edge="1" parent="1" source="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e8" value="contains  (1:M)">
+          <mxGeometry relative="1" x="0.065" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r8" edge="1" parent="1" source="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e9" value="makes  (1:M)">
+          <mxGeometry relative="1" x="0.0622" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="520" />
+              <mxPoint x="790" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r9" edge="1" parent="1" source="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e9" value="has students  (1:M)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r10" edge="1" parent="1" source="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;startArrow=ERzeroToMany;strokeColor=#475569;fontColor=#1f2937;fontSize=11;labelBackgroundColor=#ffffff;" target="e10" value="produces  (1:0..1)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=18;fillColor=#fff7d6;strokeColor=#d6b656;fontColor=#333333;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="DESIGN NOTES&lt;br/&gt;• PK = Primary Key; FK = Foreign Key&lt;br/&gt;• GPA/CGPA and transcripts should be calculated from recorded results, not stored redundantly.&lt;br/&gt;• Each registration links one student to one course offering in a semester.&lt;br/&gt;• A result is optional until grading is completed." vertex="1">
+          <mxGeometry height="100" width="1000" x="70" y="970" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
