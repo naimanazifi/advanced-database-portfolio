@@ -1,65 +1,65 @@
-# Performance Analysis and Query Optimisation
+# Part 2: Query Optimisation and Performance Analysis
 
 ## 1. Introduction
 
-This section examines how indexes can improve the performance of the University Student Management and Result Management System. The database contains information about departments, programmes, students, lecturers, courses, semesters, course offerings, registrations and results.
+This section evaluates indexing and query performance in the University Student Management and Result Management System. The database contains departments, programmes, students, lecturers, courses, semesters, course offerings, registrations and results.
 
-As the number of records increases, queries may take longer to execute. Appropriate indexing can help the database locate records more efficiently.
+Indexes can help MySQL locate records efficiently when queries filter, search or join tables using indexed columns.
 
 ## 2. Purpose of Indexing
 
-An index is a database structure that helps the database find records without scanning every row in a table. Indexes are particularly useful for columns frequently used in joins, filtering and searching.
+An index is a database structure that helps MySQL find records without examining every row in a table. The project uses indexes to support common database operations.
 
-The following indexes were selected for this project:
+The following additional indexes are defined in `indexes.sql`:
 
-| Index | Column | Reason |
+| Index | Table and column | Purpose |
 |---|---|---|
-| `idx_student_programme` | `Student.Programme_ID` | Supports joins between students and programmes |
-| `idx_offering_course` | `Course_Offering.Course_ID` | Supports searches for offerings of a particular course |
-| `idx_offering_semester` | `Course_Offering.Semester_ID` | Supports searches by semester |
-| `idx_registration_student` | `Registration.Student_ID` | Supports retrieval of a student's registrations |
-| `idx_registration_offering` | `Registration.Offering_ID` | Supports retrieval of students registered for an offering |
-| `idx_result_score` | `Result.Score` | May help queries filtering or sorting by score |
+| `idx_offering_semester` | `Course_Offering.Semester_ID` | Supports searches for course offerings by semester |
+| `idx_registration_offering` | `Registration.Offering_ID` | Supports retrieval of registrations for a course offering |
+| `idx_result_score` | `Result.Score` | May support filtering results by score |
+
+Primary-key, unique-constraint and foreign-key indexes are also present where defined or created by MySQL. Existing indexes should be checked before adding new ones to avoid unnecessary duplication.
 
 ## 3. Query Performance Testing
 
-Performance should be evaluated by comparing queries before and after creating the indexes.
+The database was tested using MySQL 8 through DB Fiddle with fictional sample records.
 
-The following procedure can be used:
+The following queries were examined:
 
-1. Create a representative dataset containing student, course, registration and result records.
-2. Run selected queries before creating the additional indexes.
-3. Record each query's execution time and query plan.
-4. Create the indexes in `indexes.sql`.
-5. Run the same queries again under comparable conditions.
-6. Compare execution times and query plans to determine whether performance improved.
+1. Retrieving course offerings and their semesters.
+2. Retrieving students registered for each course.
+3. Retrieving student results and grades.
+4. Counting students in each programme.
+5. Calculating average scores for each course.
 
-The same database engine, dataset and query conditions should be used in both tests. Where possible, queries should be executed more than once to reduce the influence of temporary system activity.
+The `EXPLAIN` statement was used to inspect query execution plans and determine whether MySQL used indexes.
 
-### 3.1 Observed Test Results
+### 3.1 Observed Results
 
-The SQL queries were tested using MySQL 8 in DB Fiddle with a small sample dataset containing three students, three course offerings and four result records. The `EXPLAIN` statement was used to examine how MySQL planned selected queries.
+The test for students by programme showed that MySQL used the `Programme_ID` index on the `Student` table.
 
-The execution plans showed index use for searches on `Student.Programme_ID`, `Course_Offering.Course_ID` and `Registration.Student_ID`. These results indicate that MySQL could use the relevant indexes for those conditions.
+The course-offering test showed that MySQL used the `Course_ID` index on `Course_Offering`.
 
-For the query filtering `Result` records with `Score >= 80`, MySQL performed a full table scan rather than using the score index. The plan reported four rows to examine. This is reasonable for a very small table, where scanning all rows may cost less than accessing an index.
+The registration test showed that MySQL used the `Student_ID` index on `Registration`.
 
-These tests confirm the observed query plans, but they do not establish a measured improvement in execution speed. A larger dataset and repeated tests with and without the additional indexes would be needed to measure performance differences reliably.
+The score-filtering test showed a full table scan on the `Result` table rather than use of the `Score` index. This is not necessarily an error: because the sample table contains only four result records, MySQL may find scanning the table more efficient.
+
+These observations describe the execution plans returned by the tests. They do not establish a measured improvement in execution speed.
 
 ## 4. Expected Benefits
 
-The selected indexes may reduce the number of rows the database needs to examine when retrieving related records. They may improve joins involving student programmes, course offerings and registrations.
+The additional indexes may improve retrieval for queries that filter or join using `Semester_ID`, `Offering_ID` or `Score`, particularly as the database grows.
 
-The actual benefit depends on the size and distribution of the data, the database engine, the query structure and the indexes already available.
+The actual benefit depends on data volume, data distribution, query structure and indexes already available.
 
 ## 5. Trade-offs and Limitations
 
-Indexes require additional storage space and must be maintained when records are inserted, updated or deleted. Too many indexes may therefore reduce write performance.
+Indexes require additional storage and must be maintained when records are inserted, updated or deleted. Too many indexes can therefore reduce write performance.
 
-Primary keys and unique constraints commonly create indexes automatically. Additional indexes should be reviewed to avoid unnecessary duplication. The `Result.Score` index may offer limited benefit if the table is small or most queries retrieve a large proportion of its rows.
+The small sample dataset is useful for checking SQL correctness and execution plans, but it is insufficient to establish reliable performance improvements. A larger dataset and repeated timing tests would be needed for a stronger comparison.
 
-No measured performance improvement is claimed until tests have been conducted.
+The `Result.Score` index may provide limited benefit when queries return a large proportion of the table's records.
 
 ## 6. Conclusion
 
-Indexing is an important technique for improving relational database performance. The proposed indexes target common relationships and retrieval operations in the university management system. Testing with representative data will determine which indexes provide meaningful benefits and whether any should be adjusted or removed.
+The project demonstrates how indexing and the `EXPLAIN` statement can be used to investigate relational database performance. The tests confirmed index usage for selected queries and showed that MySQL may choose a table scan when it considers that approach more efficient. Further testing with a larger dataset would help determine which indexes provide meaningful benefits.
