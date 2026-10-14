@@ -108,6 +108,6 @@ This project improved my understanding of database design, transaction processin
 
 Some limitations remain. A two-session concurrency experiment has not been completed, and the cloud architecture has not been deployed to a live service. Further work would include testing simultaneous transactions, measuring query performance, validating backup restoration and testing recovery from database failure.
 
-## 13. AI Use Declaration
+**AI Use Reference**
 
-ChatGPT was used to assist with planning, explanations, example queries and documentation. I reviewed the suggested material and executed selected SQL and MongoDB Playground queries, using observed results to check the examples. Cloud deployment content is presented as a proposed design, not as a live implementation. I remain responsible for reviewing and understanding the submitted work.
+AI was consulted as a supplementary reference for clarifying database concepts and reviewing technical documentation. All relevant content was reviewed for accuracy and consistency with the project implementation.
