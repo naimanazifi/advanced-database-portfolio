@@ -108,6 +108,24 @@ This project improved my understanding of database design, transaction processin
 
 Some limitations remain. A two-session concurrency experiment has not been completed, and the cloud architecture has not been deployed to a live service. Further work would include testing simultaneous transactions, measuring query performance, validating backup restoration and testing recovery from database failure.
 
-**AI Use Reference**
+### 13. References and AI Use
 
-AI was consulted as a supplementary reference for clarifying database concepts and reviewing technical documentation. All relevant content was reviewed for accuracy and consistency with the project implementation.
+#### 13.1 References
+
+1. Oracle. (n.d.). *MySQL 8.0 Reference Manual: InnoDB Transaction Model.* MySQL Documentation. https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-model.html
+
+2. Oracle. (n.d.). *MySQL 8.0 Reference Manual: COMMIT and ROLLBACK Statements.* MySQL Documentation. https://dev.mysql.com/doc/refman/8.0/en/commit.html
+
+3. Oracle. (n.d.). *MySQL 8.0 Reference Manual: Optimization and Indexes.* MySQL Documentation. https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html
+
+4. Oracle. (n.d.). *MySQL 8.0 Reference Manual: EXPLAIN Statement.* MySQL Documentation. https://dev.mysql.com/doc/refman/8.0/en/explain.html
+
+5. MongoDB, Inc. (n.d.). *MongoDB Manual: Documents.* MongoDB Documentation. https://www.mongodb.com/docs/manual/core/document/
+
+6. MongoDB, Inc. (n.d.). *MongoDB Manual: Data Modeling.* MongoDB Documentation. https://www.mongodb.com/docs/manual/data-modeling/
+
+7. MongoDB, Inc. (n.d.). *MongoDB Manual: Query on Embedded or Nested Documents.* MongoDB Documentation. https://www.mongodb.com/docs/manual/tutorial/query-embedded-documents/
+
+#### 13.2 AI Use Reference
+
+ChatGPT was consulted as a supplementary reference for clarifying database concepts and reviewing technical documentation. The final content was reviewed for accuracy and consistency with the project implementation.
