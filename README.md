@@ -128,4 +128,4 @@ Some limitations remain. A two-session concurrency experiment has not been compl
 
 #### 13.2 AI Use Reference
 
-ChatGPT was consulted as a supplementary reference for clarifying database concepts and reviewing technical documentation. The final content was reviewed for accuracy and consistency with the project implementation.
+ChatGPT was used to clarify database concepts and review documentation. I reviewed the content and checked the examples against the project tests. Any proposed designs and uncompleted tests are identified accordingly.
