@@ -1,52 +1,99 @@
 # Portfolio 5: Distributed and Cloud Database Design
 
-## 1. Introduction
+## University Student Management and Result Management System
 
-This portfolio proposes a distributed and cloud-based design for the University Student Management System. The system stores student profiles, course registrations, academic results and programme information. As student numbers grow, a single database server may become a bottleneck or a single point of failure.
+### 1. Introduction
 
-The proposed design uses a managed cloud database, controlled replication, secure remote access and regular backups to improve availability, scalability and recovery.
+The University Student Management and Result Management System stores information about students, programmes, departments, lecturers, courses, registrations and academic results. As the number of students and university campuses increases, a single database server may become a bottleneck or a single point of failure.
 
-## 2. Proposed Architecture
+This portfolio proposes a distributed and cloud-based database architecture that supports availability, data consistency, security and future growth. The design is intended for a university operating across multiple campuses or locations. It is a proposed architecture, not a claim of a completed cloud deployment.
 
-The system follows a three-layer architecture:
+### 2. Proposed Architecture
 
-1. **Application layer:** A web application used by students, lecturers and authorised administrators.
-2. **Database layer:** A primary relational database that stores students, programmes, course offerings, registrations and results.
-3. **Backup and recovery layer:** Encrypted backups stored separately from the live database, with a documented restoration process.
+The system will use a primary relational database hosted on a managed cloud database service. University applications will connect to the database through a secure application layer rather than connecting directly from users' devices.
 
-For a practical implementation, the relational database could be deployed using a managed MySQL-compatible cloud service. A production deployment should use a high-availability configuration with a primary database and a synchronised standby or replica in a separate availability zone where supported.
+The architecture will contain the following components:
 
-## 3. Distribution and Replication Strategy
+1. **Application layer:** A web application through which authorised students, lecturers and administrators access the system.
+2. **Primary database:** A managed MySQL database responsible for processing approved inserts, updates and deletes.
+3. **Read replica:** A secondary database that receives replicated data and serves suitable read-only reports, reducing the workload on the primary database.
+4. **Backup storage:** A separate storage location for encrypted database backups and recovery copies.
+5. **Monitoring service:** A monitoring system that tracks database availability, storage usage, replication delay, failed connections and query performance.
 
-The database should use a primary-replica model.
+The primary database remains the authoritative source for student records and results. Read replicas improve read capacity but should not be treated as independent authoritative databases.
 
-- **Primary database:** Handles student registration, result entry and other write operations.
-- **Read replica:** Serves suitable read-heavy requests, such as viewing course catalogues and published results.
-- **Standby replica:** Supports recovery or failover if the primary database becomes unavailable, depending on the managed service configuration.
-- **Encrypted backups:** Provide recovery from accidental deletion, corruption or wider service failure.
+### 3. Data Distribution and Replication
 
-Not every read should be sent to a replica. Registration and result updates should use the primary database, and read-after-write operations should read from the primary or use a consistency mechanism that ensures the latest committed data is visible.
+The proposed system will use primary-to-replica replication. Changes committed on the primary database are transferred to the replica, subject to replication delay and the selected replication configuration.
 
-Replication improves availability and read capacity, but it is not a replacement for backups.
+The primary database will handle important transactions, including student registration and result updates. Read replicas may handle reporting queries, such as student enrolment totals and course performance summaries.
 
-## 4. Consistency and Transaction Management
+Replication is not necessarily instantaneous. Therefore, a user who updates a result may temporarily see an older value when reading from a lagging replica. The application should direct critical read-after-write operations to the primary database or use a consistency mechanism appropriate to the chosen cloud service.
 
-Student registration and academic results require strong data integrity. The existing MySQL schema uses primary keys, foreign keys, unique constraints and a score check constraint to protect data.
+The initial deployment will retain a central authoritative database rather than splitting student records across independently writable campus databases. This reduces the risk of conflicting updates to student registrations and results.
 
-Transactions should be used for operations that involve multiple related changes. For example, a registration process should confirm that the student and course offering exist before creating a registration record. The unique constraint on `(Student_ID, Offering_ID)` prevents the same student from registering for the same course offering twice.
+### 4. Availability and Failure Recovery
 
-A read replica may temporarily lag behind the primary database. Therefore, the system should not rely on a potentially stale replica immediately after a registration or result update.
+The design will use the following measures to reduce downtime:
 
-## 5. Scalability and Performance
+- **High availability:** Where supported, configure the managed database service with a standby instance in a separate availability zone.
+- **Automated backups:** Enable scheduled backups and point-in-time recovery where the service supports them.
+- **Replication monitoring:** Alert administrators when replica lag exceeds an agreed threshold.
+- **Failover procedures:** Document and test how the service promotes a healthy standby when the primary database becomes unavailable.
+- **Recovery testing:** Periodically restore a backup in a test environment to confirm that the recovery process works.
 
-The system can scale by separating application servers from database servers and using read replicas for suitable queries. Indexes should be created on frequently searched fields, and query execution plans should be reviewed to identify slow queries.
+A read replica is not automatically a complete backup. Accidental deletions or corrupted data may also be replicated, so independent backups and tested recovery procedures remain necessary.
 
-If the university grows substantially, student records could be partitioned by a suitable key or distributed across database nodes, but partitioning should only be introduced after measuring the workload. Poor partition-key selection can increase query complexity and create uneven data distribution.
+The university should define a Recovery Point Objective (RPO), which specifies the acceptable amount of data loss, and a Recovery Time Objective (RTO), which specifies the acceptable time required to restore service. These targets should be agreed with university management and validated through recovery tests rather than assumed.
 
-## 6. Security and Access Control
+### 5. Security and Data Protection
 
-The deployment should apply the following controls:
+Student records and academic results are sensitive institutional information. The proposed system will apply the following controls:
 
-- Encrypt database connections using TLS.
-- Restrict database access to approved application servers and administrators.
-- Use separate accounts and
+- Use role-based access control to restrict students, lecturers and administrators to the records and operations required for their responsibilities.
+- Require encrypted connections between the application and database.
+- Enable encryption at rest for database storage and backups where supported.
+- Store credentials and encryption keys securely rather than embedding them in application source code.
+- Record important administrative actions and changes to academic results in audit logs.
+- Apply regular security patches and review database permissions.
+- Back up data to a protected location with access controls separate from ordinary application access.
+
+These controls reduce the risk of unauthorised disclosure, accidental modification and loss of academic records.
+
+### 6. Implementation and Evaluation Plan
+
+The system can be implemented in stages:
+
+| Stage | Activity | Evidence of completion |
+|---|---|---|
+| 1 | Create and validate the relational schema and sample data | Successful schema and data validation |
+| 2 | Deploy the primary database in a cloud test environment | Successful connection and CRUD tests |
+| 3 | Configure a read replica and test replication | A committed test record becomes available on the replica |
+| 4 | Configure backups and perform a test restoration | Restored database passes record-count and integrity checks |
+| 5 | Test monitoring and recovery procedures | Alerts and recovery outcomes are documented |
+| 6 | Review security, cost and performance | Permissions, monitoring results and cost estimates are documented |
+
+Testing should include a controlled primary-database failure, replica-lag observation, backup restoration, and verification of student-registration and result records after recovery. Tests should be performed in a non-production environment to avoid disrupting university operations.
+
+No live cloud deployment, failover test or measured performance improvement is claimed in this portfolio unless supporting evidence is collected.
+
+### 7. Limitations and Trade-offs
+
+A managed cloud database can reduce infrastructure maintenance, but it introduces recurring service costs and dependence on network connectivity. If a campus loses internet access, users may temporarily be unable to reach the central database.
+
+Replication also introduces operational complexity, and asynchronous replicas may lag behind the primary. High availability does not eliminate every outage, while backups are only useful if they can be restored successfully.
+
+The university should compare cloud-service costs, data residency requirements, network reliability, security responsibilities and recovery guarantees before choosing a provider. Local caching of academic results should be avoided unless a carefully controlled synchronisation design prevents conflicting updates.
+
+### 8. Conclusion
+
+The proposed architecture combines a managed MySQL primary database, read replication, independent backups, monitoring and documented recovery procedures. It provides a practical foundation for supporting a growing university system while protecting the consistency and availability of student records.
+
+The design also recognises that replication, high availability and backups solve different problems. A production deployment would require implementation, security review, cost assessment and recovery testing before the university could rely on it for critical academic operations.
+
+### References
+
+1. MySQL Documentation. *Replication*. https://dev.mysql.com/doc/refman/8.4/en/replication.html
+2. MySQL Documentation. *Backup and Recovery*. https://dev.mysql.com/doc/refman/8.4/en/backup-and-recovery.html
+3. MySQL Documentation. *InnoDB and Transaction Processing*. https://dev.mysql.com/doc/refman/8.4/en/innodb-transaction-model.html
+
