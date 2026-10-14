@@ -69,20 +69,26 @@ The `portfolio-2-query-optimisation/` directory contains:
 - `indexes.sql` — defines additional indexes for selected query operations.
 - `performance-analysis.md` — documents indexing decisions, observed execution plans, benefits and limitations.
 
+### Master SQL Script
+
+The repository root contains `university_database.sql`, a consolidated MySQL script that creates the nine relational tables, inserts sample data, defines performance indexes, verifies row counts, generates reports and examines a query execution plan.
+
 ## 8. Running Part 2
 
-The SQL implementation was tested using MySQL 8 through DB Fiddle.
+The master SQL script was executed using CompileBytes MySQL Playground with MySQL 8.4.11. The verification output showed all nine tables and the expected sample row counts.
 
-To reproduce the tests:
+To reproduce the master-script test:
 
-1. Select MySQL 8 in DB Fiddle.
-2. Run the table definitions in `schema.sql`.
-3. Execute the statements in `sample-data.sql` after creating the tables.
-4. Run the required statements from `queries.sql`.
-5. Apply the additional indexes in `indexes.sql` after checking which indexes already exist.
-6. Use `EXPLAIN` to inspect query execution plans and document the observed results.
+1. Open a MySQL 8-compatible environment.
+2. Select an empty database/schema in which you have permission to create tables and indexes.
+3. Open `university_database.sql` from the repository root.
+4. Execute the complete script.
+5. Review the verification output and reports.
+6. Inspect the `EXPLAIN` output to understand the query execution plan.
 
-The schema and sample data must be available together whenever the testing environment resets its database.
+The script does not create or select a database automatically and does not drop existing tables. Use an empty schema to avoid table-already-exists errors.
+
+For the separate Part 2 scripts, run `schema.sql` before `sample-data.sql`, then execute `queries.sql` and apply `indexes.sql` as appropriate. Use the testing environment specified for those scripts and ensure the schema and sample data are available after any database reset.
 
 ## 9. Development Approach
 
@@ -108,9 +114,9 @@ This project improved my understanding of database design, transaction processin
 
 Some limitations remain. A two-session concurrency experiment has not been completed, and the cloud architecture has not been deployed to a live service. Further work would include testing simultaneous transactions, measuring query performance, validating backup restoration and testing recovery from database failure.
 
-### 13. References and AI Use
+## 13. References and AI Use
 
-#### 13.1 References
+### 13.1 References
 
 1. Oracle. (n.d.). *MySQL 8.0 Reference Manual: InnoDB Transaction Model.* MySQL Documentation. https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-model.html
 
@@ -126,6 +132,55 @@ Some limitations remain. A two-session concurrency experiment has not been compl
 
 7. MongoDB, Inc. (n.d.). *MongoDB Manual: Query on Embedded or Nested Documents.* MongoDB Documentation. https://www.mongodb.com/docs/manual/tutorial/query-embedded-documents/
 
-#### 13.2 AI Use Reference
+### 13.2 AI Use Reference
 
 ChatGPT was used to clarify database concepts and review documentation. I reviewed the content and checked the examples against the project tests. Any proposed designs and uncompleted tests are identified accordingly.
+
+## 14. Master SQL Script and Execution Guide
+
+### 14.1 Script Overview
+
+The root-level file `university_database.sql` contains the consolidated MySQL implementation of the University Student Management and Result Management System. It defines nine related tables: Department, Programme, Student, Lecturer, Course, Semester, Course_Offering, Registration and Result.
+
+The script includes primary keys, foreign key relationships, unique constraints, check constraints, fictional sample records, performance indexes, verification queries, student and result reports, and an `EXPLAIN` statement for query-plan analysis.
+
+### 14.2 How to Run the Script
+
+1. Open MySQL 8 or a compatible environment.
+2. Select an empty database/schema where you have permission to create tables and indexes.
+3. Open `university_database.sql`.
+4. Execute the complete script.
+5. Review the verification output to confirm the table counts.
+6. Inspect the student and result reports.
+7. Review the `EXPLAIN` output to understand the execution plan.
+
+**Important:** The script does not create or select a database automatically and does not drop existing tables. Use an empty schema to avoid table-already-exists errors.
+
+### 14.3 Expected Verification Results
+
+| Table | Expected rows |
+|---|---:|
+| Department | 2 |
+| Programme | 2 |
+| Student | 3 |
+| Lecturer | 2 |
+| Course | 3 |
+| Semester | 2 |
+| Course_Offering | 3 |
+| Registration | 4 |
+| Result | 4 |
+| **Total** | **25** |
+
+These counts correspond to the fictional records supplied in the current master script.
+
+### 14.4 Execution Evidence
+
+The `screenshots/` directory contains screenshots of the database verification output, student and programme report, result report and query execution plan.
+
+The `EXPLAIN` statement examines the query plan for retrieving students by programme. The `idx_student_programme` index is available for this lookup, but the MySQL optimiser decides whether to use it based on factors such as the query, dataset size and data distribution. The actual execution plan should be reported as observed.
+
+### 14.5 Limitations and Further Work
+
+The sample dataset is intentionally small and fictional. It demonstrates relational design, integrity constraints, reporting queries and basic index analysis, but it is not sufficient to establish production-scale performance.
+
+Further evaluation could use a larger dataset, compare execution plans before and after indexing, measure query execution times, test concurrent registrations, and validate transaction recovery. Transaction and concurrency testing, NoSQL implementation, and distributed or cloud database design are documented separately in their respective portfolio directories.
