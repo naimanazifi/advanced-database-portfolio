@@ -134,7 +134,9 @@ Some limitations remain. A two-session concurrency experiment has not been compl
 
 ### 13.2 AI Use Reference
 
-ChatGPT was used to clarify database concepts and review documentation. I reviewed the content and checked the examples against the project tests. Any proposed designs and uncompleted tests are identified accordingly.
+ AI was used to support the planning of this portfolio, I reviewed the content, made adjustments where necessary and carried out the practical database tests described in the report. I have also clearly identified activities and results that I could not complete or verify. I take responsibility for the final submission and the accuracy of the work presented.
+
+<img width="523" height="63" alt="image" src="https://github.com/user-attachments/assets/9ef0bd17-7c8c-49e5-b4cc-8c23da1a84f7" />
 
 ## 14. Master SQL Script and Execution Guide
 
